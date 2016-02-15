@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "description": "A electron app template",
   "main": "main.js",
-  "repository" :{
-    "type" : "git",
-    "url" : "https://github.com/umema4/electron-babel6.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umema4/electron-babel6.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,10 +18,15 @@
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.5.1",
+    "babel-eslint": "^4.1.8",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^5.0.1",
+    "eslint-plugin-react": "^3.16.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
+    "gulp-eslint": "^1.1.1",
     "gulp-load-plugins": "^1.2.0"
   }
 }
