@@ -2,6 +2,7 @@
   "extends": "airbnb/base",
   "rules": {
     "no-console": 0,
-    "no-unused-vars": [2, {"vars": "all", "args": "none"}]
+    "no-unused-vars": [2, {"vars": "all", "args": "none"}],
+    "arrow-body-style": [2, "always"]
   }
 }

@@ -1,7 +1,11 @@
-const hoge = 'fuga';
-console.log(hoge);
+'use strict';
 
+import Sample from './utils/sample';
+
+const sample = new Sample();
+const hoge = 'hogehoge';
 const x = {
-  sample: 0,
+  num: 0,
 };
-console.log(x);
+
+sample.hoge(`${hoge}${x.num}`);
