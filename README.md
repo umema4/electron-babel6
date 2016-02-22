@@ -26,6 +26,21 @@ or
 gulp build-prod
 ```
 
+## directory structure
+```
+project/
+    ├─ config/
+    ├─ assets/
+    │   └─ app.bundle.js
+    │   └─ app.bundle.js.map
+    ├─ src/
+    │   └─ js/
+    │         └─ app.js
+    ├─ index.html
+    └─ main.js
+```
+
+
 ## memo
 - use shrinkwrap
 ```
