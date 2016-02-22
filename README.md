@@ -12,9 +12,18 @@ npm install -g electron-prebuilt gulp
 npm install
 ```
 
-build es6 file
+build es6 file and minify js with sourcemap.
 ```
-gulp compile
+gulp
+or
+gulp build-dev
+```
+
+build es6 file and minify js without sourcemap.
+```
+gulp
+or
+gulp build-prod
 ```
 
 ## memo
@@ -24,12 +33,7 @@ npm shrinkwrap --dev
 ```
 
 ## TODO
-- use eslint
 - use sass
-  http://qiita.com/youthkee/items/f456fb5730655cc8f9c2
 - use import
-- use webpack
-  http://qiita.com/rei-m/items/2beea6266e82d41cdd96
-  http://blog.flup.jp/2015/02/17/gulp_webpack_stylus/
 - packaging
 - livereload
