@@ -21,8 +21,6 @@ gulp build-dev
 
 build es6 file and minify js without sourcemap.
 ```
-gulp
-or
 gulp build-prod
 ```
 
