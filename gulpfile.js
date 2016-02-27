@@ -7,6 +7,15 @@ const del = require('del');
 
 const BUILD_DIR = path.join(__dirname, '/assets/');
 
+gulp.task('bootstrap', () => {
+  return gulp.src('src/scss/custom-bootstrap.scss')
+    .pipe($.sass())
+      .on('error', (err) => {
+        console.log(err.message);
+      })
+    .pipe(gulp.dest('src/css'));
+});
+
 gulp.task('check-transformed-code', () => {
   return gulp.src('src/**/*.{js,jsx}')
     .pipe($.babel())
@@ -45,12 +54,14 @@ gulp.task('lint', () => {
 gulp.task('build-dev', () => {
   runSequence('lint',
     'build-clean',
+    'bootstrap',
     'webpack-dev');
 });
 
 gulp.task('build-prod', () => {
   runSequence('lint',
     'build-clean',
+    'bootstrap',
     'webpack-prod');
 });
 
