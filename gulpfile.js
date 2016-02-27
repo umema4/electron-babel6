@@ -7,13 +7,26 @@ const del = require('del');
 
 const BUILD_DIR = path.join(__dirname, '/assets/');
 
-gulp.task('bootstrap', () => {
+gulp.task('bootstrap-dev', () => {
+  return gulp.src('src/scss/custom-bootstrap.scss')
+    .pipe($.sourcemaps.init())
+    .pipe($.sass())
+      .on('error', (err) => {
+        console.log(err.message);
+      })
+    .pipe($.cssnano())
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest(BUILD_DIR));
+});
+
+gulp.task('bootstrap-prod', () => {
   return gulp.src('src/scss/custom-bootstrap.scss')
     .pipe($.sass())
       .on('error', (err) => {
         console.log(err.message);
       })
-    .pipe(gulp.dest('src/css'));
+    .pipe($.cssnano())
+    .pipe(gulp.dest(BUILD_DIR));
 });
 
 gulp.task('check-transformed-code', () => {
@@ -54,14 +67,14 @@ gulp.task('lint', () => {
 gulp.task('build-dev', () => {
   runSequence('lint',
     'build-clean',
-    'bootstrap',
+    'bootstrap-dev',
     'webpack-dev');
 });
 
 gulp.task('build-prod', () => {
   runSequence('lint',
     'build-clean',
-    'bootstrap',
+    'bootstrap-prod',
     'webpack-prod');
 });
 
