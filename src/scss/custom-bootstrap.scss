@@ -1,3 +1,9 @@
 $enable-flex: true;
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
+
+.main {
+  .card {
+    max-width: 20rem;
+  }
+}

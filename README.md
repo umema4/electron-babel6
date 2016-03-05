@@ -31,9 +31,15 @@ project/
     ├─ assets/
     │   └─ app.bundle.js
     │   └─ app.bundle.js.map
+    │   └─ cutom-bpptstrap.css
+    │   └─ cutom-bpptstrap.css.map
     ├─ src/
-    │   └─ js/
-    │         └─ app.js
+    │   ├─ js/
+    │   │   └─ app.js
+    │   └─ css/
+    │   └─ images/
+    │   └─ sass/
+    │        └─ custom-bootstrap.scss
     ├─ index.html
     └─ main.js
 ```
@@ -46,7 +52,5 @@ npm shrinkwrap --dev
 ```
 
 ## TODO
-- use sass
-- use import
 - packaging
 - livereload
