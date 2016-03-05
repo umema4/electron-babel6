@@ -1,0 +1,5 @@
+$smallCardWidth: 158px;
+
+:local .smallcard {
+  width: $smallCardWidth;
+}
