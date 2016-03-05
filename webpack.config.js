@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const config = require('config');
+const precss = require('precss');
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: {
@@ -19,9 +21,15 @@ module.exports = {
       query: {
         presets: ['es2015', 'stage-0'],
       },
+    }, {
+      test: /\.css$/,
+      loader: 'style-loader!css-loader',
     }],
   },
   devtool: config.useSourceMap ? '#source-map' : undefined,
+  postcss: () => {
+    return [autoprefixer, precss];
+  },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
       compress: {
