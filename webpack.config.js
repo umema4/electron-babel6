@@ -30,13 +30,18 @@ module.exports = {
   postcss: () => {
     return [autoprefixer, precss];
   },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
-    }),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.optimize.DedupePlugin(),
-  ],
+  plugins: () => {
+    const plugins = [];
+    plugins.push(new webpack.optimize.AggressiveMergingPlugin());
+    plugins.push(new webpack.optimize.DedupePlugin());
+
+    if (config.useMinify) {
+      plugins.push(new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false,
+        },
+      }));
+    }
+    return plugins;
+  },
 };
