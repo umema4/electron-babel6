@@ -1,3 +1,4 @@
 {
+  "useMinify": true,
   "useSourceMap": false
 }

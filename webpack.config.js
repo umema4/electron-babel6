@@ -7,6 +7,7 @@ const autoprefixer = require('autoprefixer');
 module.exports = {
   entry: {
     app: './src/js/app.js',
+    vendor: ['jquery', 'tether', 'bootstrap'],
   },
   output: {
     filename: '[name].bundle.js',
@@ -23,20 +24,34 @@ module.exports = {
       },
     }, {
       test: /\.css$/,
-      loader: 'style-loader!css-loader',
+      loader: 'style-loader!css-loader'
     }],
   },
   devtool: config.useSourceMap ? '#source-map' : undefined,
   postcss: () => {
     return [autoprefixer, precss];
   },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
-    }),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.optimize.DedupePlugin(),
-  ],
+  plugins: (() => {
+    const plugins = [];
+    plugins.push(new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery"
+    }));
+    plugins.push(new webpack.ProvidePlugin({
+      "window.Tether": "tether"
+    }));
+    plugins.push(new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'));
+    plugins.push(new webpack.optimize.AggressiveMergingPlugin());
+    plugins.push(new webpack.optimize.DedupePlugin());
+
+    if (config.useMinify) {
+      plugins.push(new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false,
+        },
+      }));
+    }
+    return plugins;
+  })(),
 };
