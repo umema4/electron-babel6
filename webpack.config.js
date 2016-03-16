@@ -24,7 +24,7 @@ module.exports = {
       },
     }, {
       test: /\.css$/,
-      loader: 'style-loader!css-loader'
+      loader: 'style-loader!css-loader',
     }],
   },
   devtool: config.useSourceMap ? '#source-map' : undefined,
@@ -34,12 +34,12 @@ module.exports = {
   plugins: (() => {
     const plugins = [];
     plugins.push(new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      "window.jQuery": "jquery"
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
     }));
     plugins.push(new webpack.ProvidePlugin({
-      "window.Tether": "tether"
+      'window.Tether': 'tether',
     }));
     plugins.push(new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'));
     plugins.push(new webpack.optimize.AggressiveMergingPlugin());
