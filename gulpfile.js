@@ -6,8 +6,10 @@ const runSequence = require('run-sequence');
 const stylelint = require('gulp-stylelint').default;
 const consoleReporter = require('gulp-stylelint-console-reporter').default;
 const del = require('del');
+const pngquant = require('imagemin-pngquant');
 
 const BUILD_DIR = path.join(__dirname, '/assets/');
+const BUILD_IMG_DIR = path.join(__dirname, '/assets/images');
 
 gulp.task('bootstrap-dev', () => {
   return gulp.src('src/scss/custom-bootstrap.scss')
@@ -75,11 +77,17 @@ gulp.task('stylelint', () => {
     }));
 });
 
-gulp.task('eslint', () => {
-  return gulp.src(['src/**/*.js'])
-    .pipe($.eslint())
-    .pipe($.eslint.format())
-    .pipe($.eslint.failAfterError());
+gulp.task('imgmin', () => {
+  return gulp.src(['src/images/*'])
+    .pipe($.imagemin({
+      progressive: true,
+      svgoPlugins: [
+        { removeViewBox: false },
+        { cleanupIDs: false },
+      ],
+      use: [pngquant()],
+    }))
+    .pipe(gulp.dest(BUILD_IMG_DIR));
 });
 
 gulp.task('lint', ['eslint', 'stylelint']);
