@@ -3,8 +3,8 @@ import $ from 'jquery';
 
 class Sample {
   constructor() {
-    $('#open-button').click(() => {
-      $('#myModal').modal('show');
+    $('#open-button-js').click(() => {
+      $('#myModal2').modal('show');
     });
   }
 
