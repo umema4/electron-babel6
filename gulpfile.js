@@ -50,6 +50,8 @@ gulp.task('build-clean', () => {
   return del([DIST_DIR]);
 });
 
+// electron-packger read package.json
+// https://github.com/electron-userland/electron-packager/issues/264
 gulp.task('copy-package', () => {
   return gulp.src('./package.json')
     .pipe(gulp.dest(DIST_DIR));
