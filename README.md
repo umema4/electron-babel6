@@ -16,7 +16,7 @@ build es6 file and minify js with sourcemap.
 ```
 gulp
 or
-gulp build-dev
+gulp build
 ```
 
 build es6 file and minify js without sourcemap.
@@ -28,7 +28,7 @@ gulp build-prod
 ```
 project/
     ├─ config/
-    ├─ assets/
+    ├─ dist/assets/
     │   └─ app.bundle.js
     │   └─ app.bundle.js.map
     │   └─ cutom-bpptstrap.css
@@ -52,5 +52,4 @@ npm shrinkwrap --dev
 ```
 
 ## TODO
-- packaging
 - livereload
