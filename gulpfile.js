@@ -7,11 +7,14 @@ const stylelint = require('gulp-stylelint').default;
 const consoleReporter = require('gulp-stylelint-console-reporter').default;
 const del = require('del');
 const pngquant = require('imagemin-pngquant');
+const packager = require('electron-packager');
 
-const BUILD_DIR = path.join(__dirname, '/assets/');
-const BUILD_IMG_DIR = path.join(__dirname, '/assets/images');
+const RELEASE_DIR = path.join(__dirname, '/release/');
+const DIST_DIR = path.join(__dirname, '/dist/');
+const BUILD_DIR = path.join(__dirname, '/dist/assets/');
+const BUILD_IMG_DIR = path.join(__dirname, '/dist/assets/images');
 
-gulp.task('bootstrap-dev', () => {
+gulp.task('bootstrap', () => {
   return gulp.src('src/scss/custom-bootstrap.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass())
@@ -39,11 +42,30 @@ gulp.task('check-transformed-code', () => {
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('build-clean', () => {
-  return del([BUILD_DIR]);
+gulp.task('release-clean', () => {
+  return del([RELEASE_DIR]);
 });
 
-gulp.task('webpack-dev', () => {
+gulp.task('build-clean', () => {
+  return del([DIST_DIR]);
+});
+
+gulp.task('copy-package', () => {
+  return gulp.src('./package.json')
+    .pipe(gulp.dest(DIST_DIR));
+});
+
+gulp.task('copy-index', () => {
+  return gulp.src('./index.html')
+    .pipe(gulp.dest(DIST_DIR));
+});
+
+gulp.task('copy-mainjs', () => {
+  return gulp.src('./main.js')
+    .pipe(gulp.dest(DIST_DIR));
+});
+
+gulp.task('webpack', () => {
   return gulp.src('src/**/*.{js, jsx, css}')
     .pipe($.env.set({
       NODE_ENV: 'dev',
@@ -77,6 +99,8 @@ gulp.task('stylelint', () => {
     }));
 });
 
+gulp.task('lint', ['eslint', 'stylelint']);
+
 gulp.task('imgmin', () => {
   return gulp.src(['src/images/*'])
     .pipe($.imagemin({
@@ -90,20 +114,41 @@ gulp.task('imgmin', () => {
     .pipe(gulp.dest(BUILD_IMG_DIR));
 });
 
-gulp.task('lint', ['eslint', 'stylelint']);
+gulp.task('package-win', (done) => {
+  packager({
+    dir: 'dist',
+    out: 'release/win',
+    name: 'ElectronApp',
+    arch: 'x64',
+    platform: 'win32',
+    version: '0.37.2',
+  }, (err, pt) => {
+    done();
+  });
+});
 
-gulp.task('build-dev', () => {
-  runSequence('lint',
+gulp.task('release', () => {
+  runSequence(
+    'release-clean',
+    'build-prod',
+    'package-win'
+  );
+});
+
+gulp.task('build', () => {
+  runSequence(
     'build-clean',
-    'bootstrap-dev',
-    'webpack-dev');
+    ['lint', 'copy-package', 'copy-index', 'copy-mainjs',
+     'imgmin', 'bootstrap', 'webpack']
+  );
 });
 
 gulp.task('build-prod', () => {
-  runSequence('lint',
+  runSequence(
     'build-clean',
-    'bootstrap-prod',
-    'webpack-prod');
+    ['lint', 'copy-package', 'copy-index', 'copy-mainjs',
+     'imgmin', 'bootstrap-prod', 'webpack-prod']
+  );
 });
 
-gulp.task('default', ['build-dev']);
+gulp.task('default', ['build']);
