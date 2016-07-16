@@ -1,0 +1,15 @@
+{
+  "extends": "airbnb",
+  "plugins": [
+    "import"
+  ],
+  "settings": {
+    "import/parser": "babel-eslint"
+  },
+  "rules": {
+    "no-console": 0,
+    "no-unused-vars": [2, {"vars": "all", "args": "none"}],
+    "arrow-body-style": [2, "always"],
+    "import/no-unresolved": 0,
+  }
+}
